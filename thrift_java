@@ -31,18 +31,17 @@ public class NewChaveValorHandler {
     
     @Override
     public String setKV(int key, String valor) throws TException {
-        String oldVal = "";
+        String old_val = "";
         if (kv.containsKey(key)) {
-            oldVal = kv.get(key);
+            old_val = kv.get(key);
         }
         kv.put(key,valor);
-        return oldVal;
+        return old_val;
 
     }
     
     @Override
     public void delKV(int key) throws TException {
-        // Same as before
         kv.remove(key);
     }
 }
