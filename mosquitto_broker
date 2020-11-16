@@ -1,0 +1,37 @@
+package sensor;
+
+import java.sql.ClientInfoStatus;
+import java.util.concurrent.TimeUnit;
+
+public class NewTemperatureSensor {
+    public static void publish() {
+    	int min = 16;
+    	int max = 46;
+        String topic = "Temperature Sensor";
+        String clientId = "TemperatureSensor";
+        int qos = 2;
+        String broker = "tcp://mqtt.eclipse.org:1883";
+        MemoryPersistence persistence = new MemoryPersistence();
+        String temp_rand;
+
+        MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+        MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        sampleClient.connect(connOpts);
+
+        while(true) {
+            try {
+                temp_rand = String.valueOf((Math.random() * (max - min) + min));
+                MqttMessage message = new MqttMessage(temp_rand.getBytes());
+                message.setQos(qos);
+                sampleClient.publish(topic, message);
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                sampleClient.disconnect();
+                System.exit(0);
+            } catch(MqttException me) {
+            	me.printStackTrace();
+            }
+        }
+    }
+}
