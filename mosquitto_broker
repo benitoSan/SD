@@ -5,10 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 public class NewTemperatureSensor {
     public static void publish() {
-    	int min = 16;
-    	int max = 46;
-        String topic = "Temperature Sensor";
-        String clientId = "TemperatureSensor";
+    	int min = 15;
+    	int max = 45;
+        String topic = "MQTT Examples";
+        String clientId = "JavaSample";
         int qos = 2;
         String broker = "tcp://mqtt.eclipse.org:1883";
         MemoryPersistence persistence = new MemoryPersistence();
